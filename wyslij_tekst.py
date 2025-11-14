@@ -65,6 +65,8 @@ displays_adresses = {
 def length_value(length):
     length += 12
     inHex = ((hex(length))[2:4]).upper()
+    if(length < 16):
+        inHex = '0' + inHex
     return " " + (inHex[0]).encode("cp852").hex() + " " + (inHex[1]).encode("cp852").hex() + " "
 import serial
 #trzeba wybrać stosowny port pod którym jest port szeregowy na RS-485
@@ -90,3 +92,4 @@ message_length_hex, message_hex = text_to_hex(message_content)                  
 message = prepare_message(displays_adresses[display_number] + message_length_hex + "38 30 31 31 37 30 20 30 34 56 20 31 " + message_hex[:-1])
 print(message)
 ser.write(bytes.fromhex(message))
+
