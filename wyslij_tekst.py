@@ -63,29 +63,9 @@ displays_adresses = {
     1: "30 37",
 }
 def length_value(length):
-    result = " "
-    if(length < 4):
-        result += "30 "
-    elif(length < 20):
-        result += "31 "
-    else:
-        result += "32 "
-    if(length < 4):
-        result += str(length+43)
-    elif((length > 3 and length < 14) or (length > 19 and length < 30)):
-        result += "3"
-        if(length < 14):
-            result += str(length-4)
-        elif(length > 19):
-            result += str(length-20)
-    elif((length > 13 and length < 20) or (length > 29 and length < 36)):
-        result += "4"
-        if(length < 20):
-            result += str(length-13)
-        elif(length > 29):
-            result += str(length-29)
-    result += " "
-    return result
+    length += 12
+    inHex = ((hex(length))[2:4]).upper()
+    return " " + (inHex[0]).encode("cp852").hex() + " " + (inHex[1]).encode("cp852").hex() + " "
 import serial
 #trzeba wybrać stosowny port pod którym jest port szeregowy na RS-485
 ser = serial.Serial('COM3', 9600)
@@ -99,14 +79,14 @@ ser = serial.Serial('COM3', 9600)
 # 10 - rodzaj fontu (30, 31 - są na jedną linijkę, 32 - dwie linijki)
 # 11 - pozycja
 # 13 - jak bardzo do lewej
-# 14 - jak bardzo do prawej (46 maks)
+# 14 - jak bardzo do prawej (56 maks)
 # 15 - ilość scrollowań tekstu dziesiątki
 # 16 - ilość scrollowań tekstu jednostki (jak będzie na 0 tj. 30 to na stałe jest tekst)
 
-#tekst
-message_content = "tekst" 
+#tekst - maksymalna długość - 243 znaki
+message_content = "śmieszny bardzo bardzo dlugi tekst typu lorem ipsum dolor sit amet czy leci z nami pilot?" 
 display_number = 27 #numer wyświetlacza ustawiany deepswitchami
 message_length_hex, message_hex = text_to_hex(message_content)                     # 5  6  7  8  9 10 11 12 13 14 15 16 
-message = prepare_message(displays_adresses[display_number] + message_length_hex + "38 30 31 32 37 30 20 30 34 37 20 30 " + message_hex[:-1])
-print(message_length_hex)
+message = prepare_message(displays_adresses[display_number] + message_length_hex + "38 30 31 31 37 30 20 30 34 56 20 31 " + message_hex[:-1])
+print(message)
 ser.write(bytes.fromhex(message))
