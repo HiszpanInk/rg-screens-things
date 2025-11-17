@@ -1,6 +1,6 @@
 # Przewody
 
-Tablice są zasilane na 24V<br>Tablice małe i duże mają przewody oznaczone kolorami, a tablice małe z WC i tablice zewnętrzne mają przewody oznaczone numerami napisanymi na kawałku papierowej taśmy na danym przewodzie.
+Tablice są zasilane na 24V, i pobierają (małe/duże/małe z WC na pewno do takiej wartości, zewnętrzne zapewne również ale nie przeprowadzono stosownych pomiarów) do 1.5 A<br>Tablice małe i duże mają przewody oznaczone kolorami, a tablice małe z WC i tablice zewnętrzne mają przewody oznaczone numerami napisanymi na kawałku papierowej taśmy na danym przewodzie.
 ## Dla tablicy małej / dużej 
 - niebieski: zasilanie -
 - różowy: zasilanie +
